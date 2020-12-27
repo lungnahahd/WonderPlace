@@ -25,7 +25,7 @@ SECRET_KEY = '!eu$^8_ak94v15w=#iyqkp(k$$#n=s$l-k+xi=+3+u#uxfr4fz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'wonderplaces',
 ]
 
 MIDDLEWARE = [
