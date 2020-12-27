@@ -76,10 +76,11 @@ WSGI_APPLICATION = 'WonderPlace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myserver',
+        'NAME': 'wonderplace',
+        'USER': 'root',
         'PASSWORD': 'bs73017762',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '3306',
     }
 }
 
