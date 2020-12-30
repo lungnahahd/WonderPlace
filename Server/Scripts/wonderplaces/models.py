@@ -4,7 +4,7 @@ from django.db import models
 class Wonder(models.Model):
     title = models.CharField(max_length=30)
     genre = models.CharField(max_length=15)
-    year = models.CharField()
+    year = models.IntegerField()
 
-    def__str__(self):
+    def __str__(self):
         return self.title
