@@ -7,5 +7,3 @@ class WonderSerializer(serializers.ModelSerializer):
         model = Wonder
         fields = ('id','title','genre','year')
         #fields = ( __all__ )도 가능
-        
-        
