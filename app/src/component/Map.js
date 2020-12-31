@@ -1,11 +1,30 @@
 /* global kakao*/
 import React,{useEffect} from 'react'
 import styled from 'styled-components'
-
+import {Grid} from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css'
+import SingleHeader from './SingleHeader'
+import Header from './Header'
 function Map() {
+   
+    const MainBlock = styled.div`
+        display:flex;
+        flex-direction:column;
+        width:100%;
+    `
+    const HeaderBlock = styled.div`
+        display:flex;
+        flex-direction:row;
+        z-index:999;
+        height:10%;
+        justify-content:center;
+       
+       
+    `
     const MapBlock = styled.div`
-        width:400px;
-        height:400px;
+        position:absolute;
+        width:100vw;
+        height:100vh;
     `
     useEffect(()=> {
         const script = document.createElement("script");
@@ -31,8 +50,14 @@ function Map() {
     
     return (
         <>
-            <MapBlock id="Mymap">
-            </MapBlock>
+            <MainBlock>
+                <HeaderBlock>
+                    <Header/>
+                </HeaderBlock>
+                <MapBlock id="Mymap">
+                </MapBlock>
+            </MainBlock>
+            
         </>
     )
 }
