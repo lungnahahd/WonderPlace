@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wpserver',
         'USER': 'root',
-        'PASSWORD': 'bs73017762',
+        'PASSWORD': '0605abcdA',
         'HOST': 'localhost',
         'PORT': '3306',
     }
