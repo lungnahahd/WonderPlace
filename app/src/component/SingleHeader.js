@@ -1,8 +1,46 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {MdLocalHospital} from 'react-icons/md'
 import {IoIosCafe} from 'react-icons/io'
 import {IoFastFood }from 'react-icons/io5'
+import {AiOutlineSearch} from 'react-icons/ai'
+import {HiOutlineArrowsExpand} from 'react-icons/hi'
 import styled from 'styled-components'
+var data = {search:"none"}
+var Toggle = false
+const SearchInputBlock = styled.input`
+    width:5rem;
+    outline:none;
+    cursor:pointer;
+    border:none;
+    font-size:16px;
+    color:#63717f;
+`
+function SearchInput() {
+    const [searchinput,SetSearchInput] = useState({search:""})
+    const {search} = searchinput
+    const onChangeSearch = e => {
+        e.preventDefault()
+        SetSearchInput({
+            search:e.target.value
+
+        })
+        if(search.length===0) {
+            Toggle = false
+        }else {
+            Toggle = true
+            data.search = search
+        }
+    }  
+    console.log(search) 
+    return (
+        <>
+            <SearchInputBlock 
+                value={search}
+                placeholder="검색" 
+                onChange={e=>onChangeSearch(e)} />
+        </>
+    )
+}
 function SingleHeader({key,text,icon}) {
    
     const SingleheaderBlock = styled.div`
@@ -30,12 +68,39 @@ function SingleHeader({key,text,icon}) {
             color:#242424;
             
         }
+        .contain-input {
+            width:10rem;
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
+            border:1px solid lightgray;
+            border-radius: 5px;
+            &:hover {
+                width:12rem;
+                transition:1s;
+                .input {
+                    width:9rem;
+                    transition:1s;
+                }
+            }
+           
+            
+            .fa-search{
+                width:2rem;
+                cursor:pointer;
+               
+            }
+        }
     `
     console.log(icon)
     return (
         <>  
             
             <SingleheaderBlock>
+                <div className="wrap wrap0">
+                    <HiOutlineArrowsExpand size="36"/>
+                    <p className="p">전체</p>
+                </div>
                 <div className="wrap wrap1">
                     <MdLocalHospital size="36"/>
                     <p className="p">선별진료소</p>
@@ -48,7 +113,15 @@ function SingleHeader({key,text,icon}) {
                     <IoIosCafe size="32"/>
                     <p className="p">카페</p>
                 </div>
-                
+                <div className="wrap wrap4">
+                    <div className="contain-input">
+                        <SearchInput/>
+                        <AiOutlineSearch className="fa-search" size="32"/>
+                    </div>
+                    
+                   
+                    
+                </div>
 
             </SingleheaderBlock>
         </>
