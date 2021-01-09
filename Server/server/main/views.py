@@ -4,10 +4,13 @@ from rest_framework import viewsets
 from .serializers import WonderSerializer
 from .models import Wonder
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 @api_view(['GET'])
 def store_list(request):
     stores = Wonder.objects.all()
+    serializer = WonderSerializer(stores,many=True)
+    return Response(serializer._data)
 
 
 

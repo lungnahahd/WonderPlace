@@ -5,4 +5,4 @@ from .models import Wonder
 class WonderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wonder
-        fields = ('id','store_name','store_place')
+        fields = ['id','store_name','store_place']
