@@ -5,5 +5,4 @@ from .models import Wonder
 class WonderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Wonder
-        fields = ('id','title','genre','year')
-        #fields = ( __all__ )도 가능
+        fields = ('id','store_name','store_place')
