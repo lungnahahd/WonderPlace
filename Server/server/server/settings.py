@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'main',
+    #'rest_framwork_swagger',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pracserver',
+        'NAME': 'pracconnect',
         'USER': 'root',
         'PASSWORD': 'khd10810',
         'HOST': 'localhost',
