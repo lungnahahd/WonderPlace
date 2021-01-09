@@ -59,6 +59,13 @@ function SingleHeader({key,text,icon}) {
             align-items:center;
             justify-content:center;
             margin-left:10px;
+            cursor:pointer;
+            &:hover {
+                
+                .p {
+                    color:blue;
+                }
+            }
         }
         .p {
             text-align:center;

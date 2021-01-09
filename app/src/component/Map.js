@@ -37,7 +37,7 @@ const MainBlock = styled.div`
         top:0;
         left:0
         display:flex;
-        z-index:999;
+        z-index:400;
         align-items:center;
         justify-content:center;
     `
@@ -124,6 +124,7 @@ const MainBlock = styled.div`
        
     `
 function Map() {
+
     const [radius,SetRadius] = useState(1000)
     const onClick =() => {
         SetRadius(radius+1000)
@@ -144,6 +145,7 @@ function Map() {
                 </MapBlock>
                 <LeftBlock>
                     <LeftSection />
+                    
                 </LeftBlock>
                 <ButtonBlock onClick={onClick}>
                     확장

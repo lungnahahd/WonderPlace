@@ -3,13 +3,12 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 import './Home.scss'
-import atlantic_city from '../images/atlantic_city.mov'
 function Home() {
     return (
         <>
             <div className="wrapper">
                 <header className="video-header">
-                    <video src="../images/atlantic_city.mov" autoplay loop playsinline muted type="video/mp4"></video>
+                    <video src="" autoplay loop playsinline muted type="video/mp4"></video>
                     <div className="viewport-header">
                         <h1 className="h1">
                         우리 어디서 볼까?

@@ -63,7 +63,7 @@ function MapShow({radius}) {
         marker3.setMap(map)
         polyline.setMap(map)
         circle.setMap(map); 
-        map.setCursor('move')       
+             
     },[radius])
     return (
         <>
