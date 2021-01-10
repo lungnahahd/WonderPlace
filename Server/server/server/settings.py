@@ -80,7 +80,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pracserver',
         'USER': 'root',
+<<<<<<< HEAD
         'PASSWORD': 'khd10810',
+=======
+        'PASSWORD': '0605abcdA',
+>>>>>>> fb52698f44f994562efd13e82ec0c651745a07f9
         'HOST': 'localhost',
         'PORT': '3306',
     }

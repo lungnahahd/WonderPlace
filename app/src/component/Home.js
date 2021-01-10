@@ -1,140 +1,67 @@
-/* global kakao*/
-import React,{useEffect} from 'react'
-import styled,{keyframes} from 'styled-components'
+import React from 'react'
+import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import './Home.css'
-import BackgroundPerson from '../images/backgroundperson.jpg'
-function Home() {
-    const HomeBlock = styled.img`
-        position: absolute;
-        box-sizing: border-box;
-        left: 0px;
-        top: 0rem;
-        width: 1280px;
-        height: 1280px;
-        z-index: 0;
-        transform: rotate(0deg);
-        transform-origin: 50% 50%;
-        opacity: 1;
-        border: 0px none rgb(0, 0, 0);
-        border-radius: 0px;
-        -webkit-user-drag: none;
-    `
-    const TitleBlock = styled.div`
-        position: absolute;
-        box-sizing: border-box;
-        left: 31rem;
-        top: 12rem;
-        width: 288px;
-        height: 90.4px;
-        transform: rotate(0deg);
-        color: rgb(255, 255, 255);
-        transform-origin: 50% 50%;
-        z-index: 4;
-        opacity: 1;
-        text-align: center;
-        font-family: Nanum Brush Script;
-        padding: 0px;
-        letter-spacing: 0px;
-        line-height: 1.3;
-        border: 0px none rgb(0, 0, 0);
-        word-break: break-word;
-        -webkit-user-drag: none;
-        .p{
-            text-align:center;
-            .span{
-                font-size: 70px;
-                font-family: 'Nanum Brush Script', sans-serif;
-                color: rgb(255, 255, 255);
-                z-index:0;
-            }
-        }
-    
-    `
-    const boxhover = keyframes`
-        0% {
-            background:#764ABC;
-        }
-        100% {
-            background:#0095D5;
-        }
-    `
-    const EnterBox = styled.div`
-        position: absolute;
-        box-sizing: border-box;
-        left: 52rem;
-        top: 35rem;
-        width: 288px;
-        height: 90.4px;
-        background:#0095D5;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        border-radius:15px;
-        transform: rotate(0deg);
-        color: rgb(255, 255, 255);
-        transform-origin: 50% 50%;
-        z-index: 4;
-        opacity: 1;
-        text-align: center;
-        font-family: Nanum Brush Script;
-        padding: 0px;
-        letter-spacing: 0px;
-        line-height: 1.3;
-        border: 0px none rgb(0, 0, 0);
-        word-break: break-word;
-        -webkit-user-drag: none;
-        &:hover {
-            transform: translateY(-8px);
-            animation: boxhover 2s 1s infinite linear alternate;
-        }
-        ${(props) => props.hover && `
-            animation:${boxhover} 2s 1s infinite linear alternate;
-        `}
-       
-        .p{
-            text-align:center;
-            .span{
-                font-size: 70px;
-                font-family: 'Nanum Brush Script', sans-serif;
-                color: rgb(255, 255, 255);
-                z-index:0;
-            }
-        }
-    `
-    // setTimeout(() => {
-    //     document.body.classList.add("reveal")},1000)
-    // document.addEventListener("click",()=> {
-    //     document.body.classList.toggle("reveal")
-    // })
-    
-    
-    return (
-        <>  
-            <HomeBlock src={BackgroundPerson}/>
-            
-            <TitleBlock>
-                <p className="p">
-                    <span className="span">
-                        우리 지금 만나
-                    </span>
-                </p>
-            </TitleBlock>
-            <Link to ="/Map">
-                <EnterBox prop={boxhover}>
-                    <div id="hoverbox">
-                        
-                    </div>
-                    <p className="p">
-                        <span className="span">
-                            만날래?
-                        </span>
-                    </p>
 
-                 </EnterBox>
-            </Link>
+import './Home.scss'
+function Home() {
+    return (
+        <>
+            <div className="wrapper">
+                <header className="video-header">
+                    <video src="" autoplay loop playsinline muted type="video/mp4"></video>
+                    <div className="viewport-header">
+                        <h1 className="h1">
+                        우리 어디서 볼까?
+                        <span className="span">Wonderplace</span>
+                        </h1>
+                    </div>
+                </header>
+                <Link to="/map">
+                     <button className="button">Enter</button>
+                </Link>
+               
+                <main className="main">
+                    <p className="p">
+                    시들으면 그만인 것을
+                        피는 꽃도 지고 마는데
+                        바람에 등 떠밀려 가는 인생아
+                        한 줌도 안되는구나
+                        무심한 저 세월은 눈치도 없이
+                        시치미 떼고 가는데
+                        한 번 왔다 갈 길인걸 뭣하러 왔소
+                        뜨네기 손님이더냐
+                        야속하다 원망을 말자
+                        세상사 별 거 없더라
+                        무심한 저 세월은 눈치도 없이
+                        시치미 떼고 가는데
+                        한번 왔다 갈 길인걸 뭣하러 왔소
+                        뜨네기 손님이더냐
+                        야속하다 원망을 말자
+                        세상사 별 거 없더라
+                        사는 게 별 거 없더라
+                        시들으면 그만인 것을
+                        피는 꽃도 지고 마는데
+                        바람에 등 떠밀려 가는 인생아
+                        한 줌도 안되는구나
+                        무심한 저 세월은 눈치도 없이
+                        시치미 떼고 가는데
+                        한 번 왔다 갈 길인걸 뭣하러 왔소
+                        뜨네기 손님이더냐
+                        야속하다 원망을 말자
+                        세상사 별 거 없더라
+                        무심한 저 세월은 눈치도 없이
+                        시치미 떼고 가는데
+                        한번 왔다 갈 길인걸 뭣하러 왔소
+                        뜨네기 손님이더냐
+                        야속하다 원망을 말자
+                        세상사 별 거 없더라
+                        사는 게 별 거 없더라
+
+                    </p>
             
-            
+                </main>
+            </div>
+           
         </>
     )
 }
