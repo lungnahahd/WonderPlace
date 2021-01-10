@@ -35,13 +35,24 @@ from django.http import HttpResponse
 #     return HttpResponse(result)
 
 def search_keyword(request):
-    search = input("검색을 원하는 키워드를 입력하세요:)")
-    url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(search)
+    keyword = input("검색을 원하는 키워드를 입력하세요:)")
+    url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(keyword)
     headers={
          "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
     }
     place=requests.get(url, headers = headers).json()['documents']
     return HttpResponse(place)
 
-
+def search_category(request):
+     category = FD6
+     x='127.05897078335246'
+     y='37.506051888130386'
+     radius = 15000
+     url = f'https://dapi.kakao.com/v2/local/search/category.json?category_group_code={category}&x={x}&y={y}&radius={radius}'
+     #url ='https://dapi.kakao.com/v2/local/search/category.json?category={}'.format(category)
+     headers={
+          "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
+     }
+     place=requests.get(url, headers=headers).json()['documents']
+     return HttpResponse(place)
 
