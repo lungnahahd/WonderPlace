@@ -44,7 +44,7 @@ def search_keyword(request):
     return HttpResponse(place)
 
 def search_category(request):
-     category = FD6
+     category = 'FD6'
      x='127.05897078335246'
      y='37.506051888130386'
      radius = 15000
