@@ -66,9 +66,9 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pracconnect',
+        'NAME': 'wpserver',
         'USER': 'root',
-        'PASSWORD': 'khd10810',
+        'PASSWORD': '0605abcdA',
         'HOST': 'localhost',
         'PORT': '3306',
     }

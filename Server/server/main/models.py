@@ -2,9 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Wonder(models.Model):
-    id = models.AutoField(primary_key=True)
-    store_name = models.CharField(max_length=100,verbose_name="식당 이름", null=True)
-    store_place = models.CharField(max_length=100,verbose_name="식당 위치" ,null=True)
+    title = models.CharField(max_length=30)
+    genre = models.CharField(max_length=15)
+    year = models.IntegerField()
 
     def __str__(self):
-        return self.store_name
+        return self.title
