@@ -1,5 +1,5 @@
 # viewsets : 자주 사용하는 공통적인 view 로직을 그룹화 한 것
-from django.shortcuts import render
+#from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import WonderSerializer
 from .models import Wonder
@@ -56,4 +56,3 @@ def search_category(request):
      }
      place=requests.get(url, headers=headers).json()['documents']
      return HttpResponse(place)
-
