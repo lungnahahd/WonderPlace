@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup
 import requests
 from django.http import HttpResponse
 
+
 # # 인증키를 입력
 # key_value ='b56169eae0274d53943d1431cc14a41a'
 # # 여러 가지 기본 정보들을 입력
