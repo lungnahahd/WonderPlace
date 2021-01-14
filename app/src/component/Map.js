@@ -1,9 +1,8 @@
 
-import React,{useEffect, useState} from 'react'
+import React,{useMemo, useState} from 'react'
 import styled from 'styled-components'
 import 'semantic-ui-css/semantic.min.css'
 import Header from './Header'
-import LeftSection from './LeftSection'
 import MapShow from './MapShow'
 const MainBlock = styled.div`
         position:relative;
@@ -21,9 +20,7 @@ const MainBlock = styled.div`
         &:active{
             z-index:1000;
         }
-        @media(max-width:768px){
-            display:none;
-        }
+       
        
        
     `
@@ -32,15 +29,7 @@ const MainBlock = styled.div`
         width:100vw;
         height:100vh;
     `
-    const LeftBlock = styled.div`
-        position:absolute;
-        top:0;
-        left:0
-        display:flex;
-        z-index:400;
-        align-items:center;
-        justify-content:center;
-    `
+ 
     const ButtonBlock = styled.div`
         position: absolute;
         right:5vw;
@@ -85,7 +74,7 @@ const MainBlock = styled.div`
     const ButtonBlock2 = styled.div`
         position: absolute;
         right:5vw;
-        bottom:12vh;
+        bottom:18vh;
         width: 6rem;
         height: 6rem;
         background:#cccccc;
@@ -130,10 +119,11 @@ function Map() {
         SetRadius(radius+1000)
       
     }
-    const onClick_reset = () => {
+    const onClick_reset =() => {
         SetRadius(1000)
     }
     
+ 
     return (
         <>
             <MainBlock>
@@ -143,10 +133,7 @@ function Map() {
                 <MapBlock >
                     <MapShow radius={radius}/>
                 </MapBlock>
-                <LeftBlock>
-                    <LeftSection />
-                    
-                </LeftBlock>
+              
                 <ButtonBlock onClick={onClick}>
                     확장
                 </ButtonBlock>
