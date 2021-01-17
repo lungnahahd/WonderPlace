@@ -1,7 +1,8 @@
 /* global kakao*/
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
+import './MapShow.scss'
 var data=[]
 //맵 컨테이너 잠깐 카피
 var map_copy=[]
@@ -24,8 +25,7 @@ function MapShow({radius}) {
     // };
     
     // places.keywordSearch('판교 치킨', callback);
-
-    const [state,SetState] = useState([])
+    //kakao api를 불러오는 통신
     const onKakaoAPI =(x,y,radius,category)=> {
         axios.post('Kakao/Front/category',{
             x:{x},
@@ -37,11 +37,11 @@ function MapShow({radius}) {
             for(let i=0; i<response.data.place.documents.length; i++) {
                 data.push(response.data.place.documents[i])
                 
-                addMarker(new kakao.maps.LatLng(parseFloat(data[i]['y']),parseFloat(data[i]['x'])));
+                addMarker(new kakao.maps.LatLng(parseFloat(data[i]['y']),parseFloat(data[i]['x'])),data[i]['place_name']);
               
             }
             
-            console.log(data[0])
+            console.log(response)
             
             
 
@@ -50,7 +50,7 @@ function MapShow({radius}) {
         })
     }
    
-   
+   //렌더링 될때 맵 표시
     useEffect(()=> {
         let container = document.getElementById("Mymap");
         var a= new kakao.maps.LatLng(37.506502, 127.053617 )
@@ -111,19 +111,42 @@ function MapShow({radius}) {
         console.log(markers)
              
     },[radius])
-  
-    const addMarker=(position) =>{
-        
-        // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
-            position: position
+    
+    const addMarker=(position,title) =>{
+        if(title=="undefined") {
+            title="-"
+        }
+        const boxstyle={
+            display:"flex",
+            width:"100px",
+            height:"100px",
+            border:"1px solid black"
+        }
+        var content = '<div class="customoverlay" >' +
+            '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+            '    <span class="title">'+title+'</span>' +
+            '  </a>' +
+            '</div>'
+                
+        //커스텀
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map_copy[0],
+            position: position,
+            content: content,
+            yAnchor: 1 
         });
+        // 마커를 생성합니다
+        // var marker = new kakao.maps.Marker({
+        //     position: position,
+        //     // content:content,
+        //     // yAnchor:1
+        // });
     
         // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map_copy[0]);
+        // markerc.setMap(map_copy[0]);
         
         // 생성된 마커를 배열에 추가합니다
-        markers.push(marker);
+        markers.push(customOverlay);
         
     }
     return (
