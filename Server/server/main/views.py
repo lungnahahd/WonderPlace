@@ -1,18 +1,19 @@
+
 # viewsets : 자주 사용하는 공통적인 view 로직을 그룹화 한 것
-#from django.shortcuts import render
+from django.shortcuts import render
 from rest_framework import viewsets
 from .serializers import WonderSerializer
 from .models import Wonder
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-#아래는 연습용 추가 import
+# 아래는 연습용 추가 import
 import urllib.request
 import urllib.parse
-from bs4 import BeautifulSoup
-import requests
+#from bs4 import BeautifulSoup
 from django.http import HttpResponse
+import requests
 
-# 단순 연습을 위한 코드(추후 삭제 예정)
+
 # # 인증키를 입력
 # key_value ='b56169eae0274d53943d1431cc14a41a'
 # # 여러 가지 기본 정보들을 입력
@@ -35,24 +36,38 @@ from django.http import HttpResponse
 #         result = result + f'<p>{store_name[i]} {store_address[i]}</p>'
 #     return HttpResponse(result)
 
+
 def search_keyword(request):
-    keyword = input("검색을 원하는 키워드를 입력하세요:)")
-    url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(keyword)
-    headers={
-         "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
-    }
-    place=requests.get(url, headers = headers).json()['documents']
-    return HttpResponse(place)
+
+    if request.method == "GET":
+        return render(request, 'main/a.html')
+
+    elif request.method == "POST":
+        query = request.POST.get('query')  # 검색어
+
+        url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(
+            query)
+        headers = {
+            "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
+        }
+        place = requests.get(url, headers=headers).json()['documents']
+        return HttpResponse(place)
+
 
 def search_category(request):
-     category = 'FD6'
-     x='127.05897078335246'
-     y='37.506051888130386'
-     radius = 15000
-     url = f'https://dapi.kakao.com/v2/local/search/category.json?category_group_code={category}&x={x}&y={y}&radius={radius}'
-     #url ='https://dapi.kakao.com/v2/local/search/category.json?category={}'.format(category)
-     headers={
-          "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
-     }
-     place=requests.get(url, headers=headers).json()['documents']
-     return HttpResponse(place)
+    if request.method == "GET":
+        #    return render(request, 'main/a.html')
+
+    elif request.method == "POST":
+        x = request.POST.get('x', None)  # 위도
+        y = request.POST.get('y', None)  # 경도
+        radius = request.POST.get('radius', None)  # 지름
+        category = request.POST.get('category', None)  # 카테고리
+
+        url = f'https://dapi.kakao.com/v2/local/search/category.json?category_group_code={category}&x={x}&y={y}&radius={radius}'
+    #url ='https://dapi.kakao.com/v2/local/search/category.json?category={}'.format(category)
+        headers = {
+            "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"
+        }
+        place = requests.get(url, headers=headers).json()['documents']
+        return HttpResponse(place)
