@@ -1,7 +1,12 @@
 /* global kakao*/
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import styled from 'styled-components';
+var data=[]
+//맵 컨테이너 잠깐 카피
+var map_copy=[]
+// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+var markers = [];
 function MapShow({radius}) {
     const MapShowBlock = styled.div`
         position:absolute;
@@ -9,15 +14,18 @@ function MapShow({radius}) {
         height:100vh;
     `
     console.log({radius})
-    var places = new kakao.maps.services.Places();
+    // 장소검색
+    // var places = new kakao.maps.services.Places();
 
-    var callback = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            console.log(result);
-        }
-    };
+    // var callback = function(result, status) {
+    //     if (status === kakao.maps.services.Status.OK) {
+    //         console.log(result);
+    //     }
+    // };
     
-    places.keywordSearch('판교 치킨', callback);
+    // places.keywordSearch('판교 치킨', callback);
+
+    const [state,SetState] = useState([])
     const onKakaoAPI =(x,y,radius,category)=> {
         axios.post('Kakao/Front/category',{
             x:{x},
@@ -25,11 +33,23 @@ function MapShow({radius}) {
             radius:{radius},
             category:{category}
         }).then(function(response) {
-            console.log(response)
+            console.log(response.data.place.documents)
+            for(let i=0; i<response.data.place.documents.length; i++) {
+                data.push(response.data.place.documents[i])
+                
+                addMarker(new kakao.maps.LatLng(parseFloat(data[i]['y']),parseFloat(data[i]['x'])));
+              
+            }
+            
+            console.log(data[0])
+            
+            
+
         }).catch(function(error) {
             console.log(error)
         })
     }
+   
    
     useEffect(()=> {
         let container = document.getElementById("Mymap");
@@ -41,6 +61,7 @@ function MapShow({radius}) {
             level: 7
         }
         const map = new window.kakao.maps.Map(container, options);
+        map_copy.push(map)
         var marker = new kakao.maps.Marker({
             position: a
         })
@@ -60,6 +81,8 @@ function MapShow({radius}) {
             strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다
         });
+        
+        
         var circle = new kakao.maps.Circle({
             center : c,  // 원의 중심좌표 입니다 
             radius: radius, // 미터 단위의 원의 반지름입니다 
@@ -74,7 +97,7 @@ function MapShow({radius}) {
         marker2.setMap(map)
         marker3.setMap(map)
         polyline.setMap(map)
-        circle.setMap(map); 
+        circle.setMap(map)
         onKakaoAPI(
             "37.506502",
             "127.053617",
@@ -82,8 +105,27 @@ function MapShow({radius}) {
             "MT1"
             
             )
+            addMarker(new kakao.maps.LatLng(37.506051888130386,127.05897078335246))
+
+        
+        console.log(markers)
              
     },[radius])
+  
+    const addMarker=(position) =>{
+        
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: position
+        });
+    
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map_copy[0]);
+        
+        // 생성된 마커를 배열에 추가합니다
+        markers.push(marker);
+        
+    }
     return (
         <>
             <MapShowBlock id="Mymap">
