@@ -1,6 +1,6 @@
 /* global kakao*/
 import React,{useEffect} from 'react'
-
+import axios from 'axios'
 import styled from 'styled-components';
 function MapShow({radius}) {
     const MapShowBlock = styled.div`
@@ -18,6 +18,18 @@ function MapShow({radius}) {
     };
     
     places.keywordSearch('판교 치킨', callback);
+    const onKakaoAPI =(x,y,radius,category)=> {
+        axios.post('Kakao/Front/category',{
+            x:{x},
+            y:{y},
+            radius:{radius},
+            category:{category}
+        }).then(function(response) {
+            console.log(response)
+        }).catch(function(error) {
+            console.log(error)
+        })
+    }
    
     useEffect(()=> {
         let container = document.getElementById("Mymap");
@@ -63,6 +75,13 @@ function MapShow({radius}) {
         marker3.setMap(map)
         polyline.setMap(map)
         circle.setMap(map); 
+        onKakaoAPI(
+            "37.506502",
+            "127.053617",
+            radius.toString(),
+            "MT1"
+            
+            )
              
     },[radius])
     return (
