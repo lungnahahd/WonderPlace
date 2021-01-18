@@ -5,51 +5,18 @@ import {IoFastFood }from 'react-icons/io5'
 import {AiOutlineSearch} from 'react-icons/ai'
 import {HiOutlineArrowsExpand} from 'react-icons/hi'
 import styled from 'styled-components'
-var data = {search:"none"}
-var Toggle = false
-const SearchInputBlock = styled.input`
-    width:5rem;
-    outline:none;
-    cursor:pointer;
-    border:none;
-    font-size:16px;
-    color:#63717f;
-`
-function SearchInput() {
-    const [searchinput,SetSearchInput] = useState({search:""})
-    const {search} = searchinput
-    const onChangeSearch = e => {
-        e.preventDefault()
-        SetSearchInput({
-            search:e.target.value
+import SearchInput from './SearchInput'
 
-        })
-        if(search.length===0) {
-            Toggle = false
-        }else {
-            Toggle = true
-            data.search = search
-        }
-    }  
-    console.log(search) 
-    return (
-        <>
-            <SearchInputBlock 
-                value={search}
-                placeholder="검색" 
-                onChange={e=>onChangeSearch(e)} />
-        </>
-    )
-}
+
 function SingleHeader({key,text,icon}) {
-   
+    
     const SingleheaderBlock = styled.div`
         display:flex;
         flex-direction:row;
         padding:1rem;
         background:white;
         border-radius:4px;
-        box-shadow:rgba(0, 0, 0, 0.08) 0px 4px 16px 0px;
+        box-shadow:rgba(0, 0, 0, 0.28) 0px 4px 16px 2px;
         transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
         overflow:hidden;
         
