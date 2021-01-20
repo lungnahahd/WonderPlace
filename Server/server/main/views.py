@@ -56,3 +56,12 @@ def search_category(request):
      }
      place=requests.get(url, headers=headers).json()['documents']
      return HttpResponse(place)
+
+def friend_list(request):
+     print("친구 목록을 사이트에 보여드릴게요^^")
+     url = "https://kapi.kakao.com/v1/api/talk/friends?limit=3"
+     headers={
+          "Authorization": "Bearer 57tRi4j0h7wxObT9HfUk7D5UfdhmtD7ued9OQAo9cusAAAF3H66q7A"
+     }
+     friend = requests.get(url,headers=headers).json()['documents']
+     return HttpResponse(friend)
