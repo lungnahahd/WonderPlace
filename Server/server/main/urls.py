@@ -5,5 +5,6 @@ from . import views
 
 urlpatterns = [
     # path('',views.search_keyword),
-    path('Front/category', views.search_category,name="Front/category"),
+    #path('Front/category', views.search_category,name="Front/category"),
+    path('',views.friend_list),
 ]

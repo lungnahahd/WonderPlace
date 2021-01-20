@@ -19,28 +19,6 @@ from django.utils.decorators import method_decorator
 from django.template.defaulttags import register
 
 
-# # 인증키를 입력
-# key_value ='b56169eae0274d53943d1431cc14a41a'
-# # 여러 가지 기본 정보들을 입력
-# detail_value = '&Type=xml&pIndex=1&pSize=100&SIGUN_NM='
-# # API 중 원하는 정보만을 검색해서 받는 부분
-# search = input('원하는 경기도 시군명을 입력해주세요:)')
-# final_url = 'https://openapi.gg.go.kr/TourismRestaurant?Key='+ key_value + detail_value + urllib.parse.quote_plus(search)
-# request = final_url
-
-# # 웹으로 API 데이터를 전달 - 지금은 연습이므로 localhost 사용
-# def store_list(request):
-#     req = requests.get(final_url)
-#     html=req.text
-#     soup = BeautifulSoup(html,'html.parser')
-#     store_name = soup.find_all("bizplc_nm")
-#     store_address = soup.find_all("refine_lotno_addr")
-#     # 웹으로 데이터를 전달하는 부분
-#     result = ''
-#     for i in range(len(store_name)):
-#         result = result + f'<p>{store_name[i]} {store_address[i]}</p>'
-#     return HttpResponse(result)
-
 
 def search_keyword(request):
 
@@ -82,3 +60,12 @@ def search_category(request):
 @register.filter
 def get_item(dictionary,key):
     return dictionary.get(key)
+
+def friend_list(request):
+     print("친구 목록을 사이트에 보여드릴게요^^")
+     url = "https://kapi.kakao.com/v1/api/talk/friends?limit=3"
+     headers={
+          "Authorization": "Bearer 57tRi4j0h7wxObT9HfUk7D5UfdhmtD7ued9OQAo9cusAAAF3H66q7A"
+     }
+     friend = requests.get(url,headers=headers).json()['documents']
+     return HttpResponse(friend)
