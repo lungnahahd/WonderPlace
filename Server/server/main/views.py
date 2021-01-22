@@ -59,13 +59,53 @@ def get_item(dictionary,key):
     return dictionary.get(key)
 
 
+
+# 이전에 로그인을 해서 거기서 redirect_url에서 code를 request로 보내줌
+# 
+# refresh token 만료시에 동작 함수 구현하기
+#
 #localhost:3000/KaKao/Front/friendlist or localhost:8000/Kakao/Front/friendlist
 @method_decorator(csrf_exempt,name='dispatch')
 def friend_list(request):
-    print("친구 목록을 사이트에 보여드릴게요^^")
-    url = "https://kapi.kakao.com/v1/api/talk/friends?limit=3"
-    headers={
-        "Authorization": "Bearer 57tRi4j0h7wxObT9HfUk7D5UfdhmtD7ued9OQAo9cusAAAF3H66q7A"
-    }
-    friend = requests.get(url,headers=headers).json()['documents']
-    return HttpResponse(friend)
+    if request.method == "GET":
+        return render(request, 'main/a.html')
+    elif request.method == "POST":
+        code = request.POST.get('code')
+        
+        with open("kakao_token.json", "r") as fp:
+            loaddata = json.load(fp)
+            atokens = loaddata["access_token"]
+            rtokens = loaddata["refresh_token"]
+        if atokens == null:
+            url = "https://kauth.kakao.com/oauth/token"
+            data = {
+                    "grant_type" : "authorization_code",
+                    "client_id" : "13f796a480ad63c4e169282f09c34c7f",
+                    "redirect_uri" : "http://localhost:3000/map",
+                    "code"         : code
+            }
+            response = requests.post(url,data=data)
+            atokens = response.json().POST.get('access_token')
+            rtokens = response.json().POST.get('refresh_token')
+            total_tokens = dict()
+            total_tokens["access_token"] = atokens
+            total_tokens["refresh_token"] = rtokens
+            with open("kakao_token.json","w") as fp:
+                json.dump(total_tokens,fp, indent="\t")
+        else:
+            url = "https://kauth.kakao.com/oauth/token"
+            data={
+                "grant_type" : "refresh_token",
+                "client_id" : "13f796a480ad63c4e169282f09c34c7f",
+                "refresh_token" : rtokens
+            }
+            response = requests.post(url,data=data)
+            atokens = response.json().POST.get('access_token')
+        final_url = "https://kapi.kakao.com/v1/api/talk/friends"
+        headers ={
+            "Authorization":"Bearer " + atokens
+        }
+        friend = requests.get(url,headers=headers).json()['documents']
+        return HttpResponse(freind)
+
+        
