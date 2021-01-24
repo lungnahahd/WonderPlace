@@ -7,4 +7,5 @@ urlpatterns = [
     #path('',views.search_keyword),
     path('Front/category', views.search_category,name="Front/category"),
     path('Front/friendlist',views.friend_list,name="Front/friendlist"),
+    path('Front/sendme',views.send_me,name="Front/sendme"),
 ]

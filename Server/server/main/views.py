@@ -65,53 +65,37 @@ def get_item(dictionary,key):
 # refresh token 만료시에 동작 함수 구현하기
 #
 #localhost:3000/KaKao/Front/friendlist or localhost:8000/Kakao/Front/friendlist
+#왜그런지는 모르겠는데 여기는 GET으로 받아야 동작
 @method_decorator(csrf_exempt,name='dispatch')
 def friend_list(request):
     if request.method == "GET":
         code= request.GET.get('code')
         # client_id = "13f796a480ad63c4e169282f09c34c7f"
         url = 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=13f796a480ad63c4e169282f09c34c7f&redirect_uri=https://localhost.com&code={}'.format(code)
-        # url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(
-        #     query)
-
-
         #url = "https://kauth.kakao.com/oauth/token"
-        data = {
-            "grant_type" : "authorization_code",
-            "client_id" : "13f796a480ad63c4e169282f09c34c7f",
-            "redirect_uri" : "https://localhost.com",
-            "code"         : code
-        }
-        print("a")
+        # data = {
+        #     "grant_type" : "authorization_code",
+        #     "client_id" : "13f796a480ad63c4e169282f09c34c7f",
+        #     "redirect_uri" : "https://localhost.com",
+        #     "code"         : code
+        # }
         response = requests.get(url).json()
         access_token = response.get('access_token')
         print(access_token)
         friend_url = "https://kapi.kakao.com/v1/api/talk/friends"
         final = f'Bearer {access_token}'
-        print(final)
+        #print(final)
         headers ={
             "Authorization" : final
         }
         freinds_response = requests.get(friend_url,headers=headers).json()
-        print("f")
         friend = freinds_response.get('msg')
-        print("c")
-        print(friend)
-        #friend = requests.get(friend_url,headers=headers).json()['documents']
-        
         return HttpResponse(friend)
         
     elif request.method =="POST":
-        #req = json.load(request.body.decode('utf-8'))
         code = request.POST.get('code')
         print(code)
-        print('b')
-        #code = req['code']
-        #code = request.POST['code']
-        #query = request.POST.get('query')
         print('a')
-        #code.encoding = 'utf-8'
-        print(code)
         url = "https://kauth.kakao.com/oauth/token"
         data = {
             "grant_type" : "authorization_code",
@@ -130,11 +114,7 @@ def friend_list(request):
         headers ={
             final
         }
-        
         friend = requests.get(friend_url,headers=headers).json()['documents']
-        
-        print("c")
-        print(friend)
         return HttpResponse(friend)
 
 
@@ -183,4 +163,30 @@ def friend_list(request):
 #         friend = requests.get(url,headers=headers).json()['documents']
 #         return HttpResponse(freind)
 
+# 나에게 메시지 보내기 함수 구현
+# access_code를 얻을 때 평소에 하던 주소에서 https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code&scope=talk_message
+# 로 이용        
+@method_decorator(csrf_exempt,name='dispatch')
+def send_me(request):
+    if request.method == "POST":
+        print("a")
+        access = request.GET.get('access_code')
+        access = "Jmvg9X4EHggPUk3jS56i9GdfZX3P3v1E_n3uAwo9dRoAAAF3NUy0kA"
+        url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
+        final = f'Bearer {access}'
+        headers = {
+            "Authorization" : final
+        }
+        data = {
+            "template_object" : json.dumps({"object_type" : "text",
+                                            "text" : "이제 다 했다 자자 좀...",
+                                            "link" :{
+                                                        "web_url" : "www.naver.com"
+                                                    }
+            })
+        }
+        response = requests.post(url,headers=headers,data=data)
         
+        print(response.status_code) 
+        
+    #elif request.method == "POST":
