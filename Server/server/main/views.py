@@ -68,10 +68,51 @@ def get_item(dictionary,key):
 @method_decorator(csrf_exempt,name='dispatch')
 def friend_list(request):
     if request.method == "GET":
-        return render(request,'main/a.html')
+        code= request.GET.get('code')
+        # client_id = "13f796a480ad63c4e169282f09c34c7f"
+        url = 'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=13f796a480ad63c4e169282f09c34c7f&redirect_uri=https://localhost.com&code={}'.format(code)
+        # url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(
+        #     query)
+
+
+        #url = "https://kauth.kakao.com/oauth/token"
+        data = {
+            "grant_type" : "authorization_code",
+            "client_id" : "13f796a480ad63c4e169282f09c34c7f",
+            "redirect_uri" : "https://localhost.com",
+            "code"         : code
+        }
+        print("a")
+        response = requests.get(url).json()
+        access_token = response.get('access_token')
+        print(access_token)
+        friend_url = "https://kapi.kakao.com/v1/api/talk/friends"
+        final = f'Bearer {access_token}'
+        print(final)
+        headers ={
+            "Authorization" : final
+        }
+        freinds_response = requests.get(friend_url,headers=headers).json()
+        print("f")
+        friend = freinds_response.get('msg')
+        print("c")
+        print(friend)
+        #friend = requests.get(friend_url,headers=headers).json()['documents']
+        
+        return HttpResponse(friend)
+        
     elif request.method =="POST":
+        #req = json.load(request.body.decode('utf-8'))
         code = request.POST.get('code')
-        url = "https://kauth.kakao.com/oauth/token
+        print(code)
+        print('b')
+        #code = req['code']
+        #code = request.POST['code']
+        #query = request.POST.get('query')
+        print('a')
+        #code.encoding = 'utf-8'
+        print(code)
+        url = "https://kauth.kakao.com/oauth/token"
         data = {
             "grant_type" : "authorization_code",
                     "client_id" : "13f796a480ad63c4e169282f09c34c7f",
@@ -80,12 +121,21 @@ def friend_list(request):
         }
         response = requests.post(url,data=data)
         access_token = response.json().POST.get('access_token')
-        freind_url = "https://kapi.kakao.com/v1/api/talk/friends"
+        print(access_token)
+        print("b")
+        friend_url = "https://kapi.kakao.com/v1/api/talk/friends"
+        print("c")
+        final = f'Authorization: Bearer {access_token}'
+        print(final)
         headers ={
-            "Authorization":"Bearer " + access_token
+            final
         }
-        friend = requests.get(url,headers=headers).json()['documents']
-        return HttpResponse(freind)
+        
+        friend = requests.get(friend_url,headers=headers).json()['documents']
+        
+        print("c")
+        print(friend)
+        return HttpResponse(friend)
 
 
 #친구목록 초기 Ver
