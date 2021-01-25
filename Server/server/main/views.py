@@ -89,8 +89,11 @@ def friend_list(request):
             "Authorization" : final
         }
         freinds_response = requests.get(friend_url,headers=headers).json()
-        friend = freinds_response.get('msg')
-        return HttpResponse(friend)
+        
+        list = freinds_response.get('elements')
+        # = freinds_response.get('msg')
+        
+        return HttpResponse(list)
         
     elif request.method =="POST":
         code = request.POST.get('code')
