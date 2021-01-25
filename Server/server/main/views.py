@@ -172,7 +172,6 @@ def friend_list(request):
 @method_decorator(csrf_exempt,name='dispatch')
 def send_me(request):
     if request.method == "POST":
-        print("a")
         access = request.GET.get('access_code')
         access = "Jmvg9X4EHggPUk3jS56i9GdfZX3P3v1E_n3uAwo9dRoAAAF3NUy0kA"
         url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
@@ -193,3 +192,33 @@ def send_me(request):
         print(response.status_code) 
         
     #elif request.method == "POST":
+
+# 메시지 보내기 코드 구현 완료
+@method_decorator(csrf_exempt,name='dispatch')
+def send_friend(request):
+    if request.method == "POST":
+        url = "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
+        access = "TylK8g7NHCNC6cgB3qzKl4LqQtz05eXOZoLVqQo9dZwAAAF3Ok0rPQ"
+        final = f'Bearer {access}'
+        headers = {
+            "Authorization" : final
+        }
+        data = {
+            'receiver_uuids' : '["o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z"]',
+            #"o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z",
+            #json.dumps("o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z"),
+            #'o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z',
+            "template_object" : json.dumps({"object_type" : "text",
+                                        "text" : "메시지여 가라 제발~",
+                                        "link" :{
+                                                    "web_url" : "https://www.naver.com",
+                                                    "mobile_web_url" : "https://www.naver.com"
+                                                },
+                                        "button_title" : "드루와"    
+            })
+        }
+        response = requests.post(url,headers=headers,data=data)
+        # msg = requests.get(url,headers=headers,data=data).json()
+        # end = msg.get('msg')
+        
+        print(response.status_code)
