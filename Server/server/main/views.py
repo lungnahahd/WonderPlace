@@ -204,10 +204,7 @@ def send_friend(request):
             "Authorization" : final
         }
         data = {
-            'receiver_uuids' : '["o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z"]',
-            #"o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z",
-            #json.dumps("o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z"),
-            #'o5qun6-dpJ2ohLaFsIW1jbyIsJypm6yYr5_z',
+            'receiver_uuids' : '["친구의 uuids"]',
             "template_object" : json.dumps({"object_type" : "text",
                                         "text" : "메시지여 가라 제발~",
                                         "link" :{
@@ -218,7 +215,4 @@ def send_friend(request):
             })
         }
         response = requests.post(url,headers=headers,data=data)
-        # msg = requests.get(url,headers=headers,data=data).json()
-        # end = msg.get('msg')
-        
         print(response.status_code)
