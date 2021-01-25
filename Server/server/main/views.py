@@ -194,6 +194,7 @@ def send_me(request):
     #elif request.method == "POST":
 
 # 메시지 보내기 코드 구현 완료
+# 동작 순서 : 먼저 내 access token 받고 거기서 친구 목록 uuids를 받고 기타 나머지 메시지 설정하면 종료
 @method_decorator(csrf_exempt,name='dispatch')
 def send_friend(request):
     if request.method == "POST":
