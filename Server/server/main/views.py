@@ -47,7 +47,7 @@ def search_category(request):
           radius = req['radius']['radius']  # 지름
           category = req['category']['category']  # 카테고리
 
-          url = f'https://dapi.kakao.com/v2/local/search/category.json?category_group_code={category}&x={x}&y={y}&radius={radius}'
+          url = f'https://dapi.kakao.com/v2/local/search/category.json?category_group_code={category}&x={y}&y={x}&radius={radius}'
           #url ='https://dapi.kakao.com/v2/local/search/category.json?category={}'.format(category)
           headers = {
                "Authorization": "KakaoAK 13f796a480ad63c4e169282f09c34c7f"

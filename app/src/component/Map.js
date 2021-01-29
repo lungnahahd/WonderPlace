@@ -1,7 +1,5 @@
-
 import React,{useMemo, useState} from 'react'
 import styled from 'styled-components'
-import 'semantic-ui-css/semantic.min.css'
 import Header from './Header'
 import MapShow from './MapShow'
 const MainBlock = styled.div`
@@ -112,6 +110,15 @@ const MainBlock = styled.div`
     
        
     `
+    const LeftBlock = styled.div`
+        position:absolute;
+        left:0;
+        top:0;
+        min-height:600px;
+        min-width:200px;
+        z-index: 4;
+        background: wheat
+    `
 function Map() {
 
     const [radius,SetRadius] = useState(1000)
@@ -122,8 +129,10 @@ function Map() {
     const onClick_reset =() => {
         SetRadius(1000)
     }
-    
- 
+    //카카오 로그인 창으로 이동
+    const btnClick=()=> {
+       
+    }
     return (
         <>
             <MainBlock>
@@ -133,7 +142,9 @@ function Map() {
                 <MapBlock >
                     <MapShow radius={radius}/>
                 </MapBlock>
-              
+                <LeftBlock>
+                    <button onClick={btnClick}>클릭</button>
+                </LeftBlock>
                 <ButtonBlock onClick={onClick}>
                     확장
                 </ButtonBlock>

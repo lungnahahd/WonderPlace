@@ -8,6 +8,8 @@ var data=[]
 var map_copy=[]
 // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 var markers = [];
+
+
 function MapShow({radius}) {
     const MapShowBlock = styled.div`
         position:absolute;
@@ -15,18 +17,7 @@ function MapShow({radius}) {
         height:100vh;
     `
     console.log({radius})
-    // 장소검색
-    // var places = new kakao.maps.services.Places();
-
-    // var callback = function(result, status) {
-    //     if (status === kakao.maps.services.Status.OK) {
-    //         console.log(result);
-    //     }
-    // };
-    
-    // places.keywordSearch('판교 치킨', callback);
-    //kakao api를 불러오는 통신
-    const onKakaoAPI =(x,y,radius,category)=> {
+    const onKakaoAPICategory =(x,y,radius,category)=> {
         axios.post('Kakao/Front/category',{
             x:{x},
             y:{y},
@@ -42,8 +33,6 @@ function MapShow({radius}) {
             }
             
             console.log(response)
-            
-            
 
         }).catch(function(error) {
             console.log(error)
@@ -98,30 +87,16 @@ function MapShow({radius}) {
         marker3.setMap(map)
         polyline.setMap(map)
         circle.setMap(map)
-        onKakaoAPI(
+        onKakaoAPICategory(
             "37.506502",
             "127.053617",
-            radius.toString(),
-            "MT1"
+            (radius).toString(),
+            "AT4"
             
-            )
-            addMarker(new kakao.maps.LatLng(37.506051888130386,127.05897078335246))
-
-        
-        console.log(markers)
-             
+            )   
     },[radius])
     
     const addMarker=(position,title) =>{
-        if(title=="undefined") {
-            title="-"
-        }
-        const boxstyle={
-            display:"flex",
-            width:"100px",
-            height:"100px",
-            border:"1px solid black"
-        }
         var content = '<div class="customoverlay" >' +
             '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
             '    <span class="title">'+title+'</span>' +
@@ -133,20 +108,13 @@ function MapShow({radius}) {
             map: map_copy[0],
             position: position,
             content: content,
-            yAnchor: 1 
+         
         });
-        // 마커를 생성합니다
-        // var marker = new kakao.maps.Marker({
-        //     position: position,
-        //     // content:content,
-        //     // yAnchor:1
-        // });
-    
-        // 마커가 지도 위에 표시되도록 설정합니다
-        // markerc.setMap(map_copy[0]);
+        console.log(customOverlay)
+        customOverlay.setMap(map_copy[0])
+      
+       
         
-        // 생성된 마커를 배열에 추가합니다
-        markers.push(customOverlay);
         
     }
     return (
