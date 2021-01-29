@@ -1,5 +1,5 @@
 .customoverlay{
-    z-index:10000;
+    position: relative;
     bottom: 85px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -14,7 +14,7 @@
         bottom: -12px;
         width: 22px;
         height: 12px;
-        background:url('./image/vertex_white.png')
+        background:url('.././image/vertex_white.png')
     }
     .a {
         display: block;

@@ -11,7 +11,7 @@ function Header() {
         margin-top:.5rem;
         background:#fff;
         width:50rem;
-        height:7rem;
+        
         box-shadow:0 2px 4px 0 rgba(0,0,0,.12);
         border-radius:4px;
         white-space:nowrap;
@@ -20,9 +20,7 @@ function Header() {
         }
         
     `
-    const catalogblock = styled.div`
-       
-    `
+  
     const HeaderminSix = styled.div`
         display:none;
         @media(max-width:600px){
