@@ -116,9 +116,11 @@ const MainBlock = styled.div`
         top:0;
         min-height:600px;
         min-width:200px;
-        z-index: 4;
-        background: wheat
-    `
+        margin-top:5rem;
+        z-index: 100;
+        background: wheat`
+
+
 function Map() {
 
     const [radius,SetRadius] = useState(1000)
@@ -131,7 +133,7 @@ function Map() {
     }
     //카카오 로그인 창으로 이동
     const btnClick=()=> {
-       
+       window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=13f796a480ad63c4e169282f09c34c7f&redirect_uri=http://localhost:3000/map&response_type=code&scope=talk_message,friends"
     }
     return (
         <>
@@ -143,7 +145,7 @@ function Map() {
                     <MapShow radius={radius}/>
                 </MapBlock>
                 <LeftBlock>
-                    <button onClick={btnClick}>클릭</button>
+                    <button onClick={btnClick}>로그인 하러가기</button>
                 </LeftBlock>
                 <ButtonBlock onClick={onClick}>
                     확장
@@ -153,6 +155,8 @@ function Map() {
                 </ButtonBlock2>
                 
             </MainBlock>
+
+            
             
         </>
     )
